@@ -15,8 +15,8 @@
 // If the car drifts left when driving straight, TRIM_R is too high or TRIM_L is too low.
 // Procedure: drive straight 2m, measure actual drift, adjust trim factors.
 // =========================================================================
-#define TRIM_L        1.0f    // left motor multiplier (adjust if car drifts)
-#define TRIM_R        1.0f    // right motor multiplier
+#define TRIM_L        1.2f    // left motor multiplier (adjust if car drifts)
+#define TRIM_R        1.05f    // right motor multiplier
 
 // =========================================================================
 // Time-Distance & Time-Angle Calibration
@@ -39,7 +39,7 @@
 // moving at a different speed.
 // =========================================================================
 #define REF_SPEED     180     // reference speed (PWM 0–255) used for calibration
-#define MS_PER_CM     12.0f   // milliseconds per cm forward at REF_SPEED (adjust after test drive)
+#define MS_PER_CM     24.0f   // milliseconds per cm forward at REF_SPEED (adjust after test drive)
 #define MS_PER_DEG    4.5f    // milliseconds per degree rotation at REF_SPEED (adjust after test drive)
 
 // =========================================================================
@@ -55,8 +55,8 @@
 //   +X = right of the axle centre
 //   +Y = forward (away from rear axle)
 //
-// Measured with a ruler on the physical car. These CHANGE when the sensor
-// is physically repositioned between stages.
+// Measured by subtracting the measured distance from sensor to wall from ruler measured distance from wall to axle
+//    Measured as 15.5 - 6.5 = 9cm for forward mount
 // =========================================================================
 
 // Side-mount (stage 1): ultrasonic faces perpendicular to car axis
@@ -65,7 +65,7 @@
 
 // Front-mount (stages 2 & 3): ultrasonic faces forward
 #define SENSOR_FRONT_OFFSET_X   0.0f   // left-right offset (cm) 0 = centred
-#define SENSOR_FRONT_OFFSET_Y   0.0f   // forward offset (cm) from axle
+#define SENSOR_FRONT_OFFSET_Y   9.0f   // forward offset (cm) from axle
 
 // =========================================================================
 // Active Sensor Configuration for current stage
