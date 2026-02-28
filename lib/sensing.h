@@ -17,6 +17,7 @@
  */
 
 #include "ADCS.h"     // provides GetDistance()
+#include "calibration.h"
 #include <math.h>
 
 // ---------------------------------------------------------------------------
@@ -25,10 +26,10 @@
 // Distance in centimetres from the wheel axle centre to the sensor
 //   offset_x: positive to the right of the axle centre (looking forward)
 //   offset_y: positive forward of the axle centre
-// These should be calibrated per stage (side mount vs forward mount).
+// These are provided by `lib/calibration.h` as SENSOR_SIDE_* and SENSOR_FRONT_*
 // ---------------------------------------------------------------------------
-static float sensor_offset_x = 0.0f;
-static float sensor_offset_y = 0.0f;
+static float sensor_offset_x = SENSOR_OFFSET_X;
+static float sensor_offset_y = SENSOR_OFFSET_Y;
 
 /**
  * set_sensor_offset(x, y)
@@ -46,13 +47,13 @@ inline void set_sensor_offset(float x, float y) {
  */
 inline void init_sensing(int stage) {
     if (stage == 1) {
-        // side mount; assume centred on axle line by default
-        sensor_offset_x = 0.0f;
-        sensor_offset_y = 0.0f;
+        // side mount; apply side-mount calibration offsets
+        sensor_offset_x = SENSOR_SIDE_OFFSET_X;
+        sensor_offset_y = SENSOR_SIDE_OFFSET_Y;
     } else {
-        // forward mount; typical ~5cm ahead of axle
-        sensor_offset_x = 0.0f;
-        sensor_offset_y = 5.0f;
+        // front mount; apply front-mount calibration offsets
+        sensor_offset_x = SENSOR_FRONT_OFFSET_X;
+        sensor_offset_y = SENSOR_FRONT_OFFSET_Y;
     }
 }
 

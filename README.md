@@ -37,24 +37,3 @@ Check your connections between the breakout board and motor driver. If this does
 Arduino [website](https://docs.arduino.cc/language-reference/).
 
 ---
-
-## Running the Python regression tests
-
-A small Python model of the control logic and accompanying pytest
-suite are included under `demo/`. They exercise the same decisions the
-Arduino code makes and were used to drive the red‑green fix for the
-spinning bug.
-
-```sh
-cd demo
-pip install pytest
-pytest test_demo_logic.py
-```
-
-The tests demonstrate (and now assert) that
-* forward commands always apply identical PWM to both motors
-* the obstacle‑avoidance sequence issues stop, reverse and turn
-* speed ramps as expected and is clamped to safe limits
-
-You can run the tests on your development machine even if Arduino is
-not installed.
