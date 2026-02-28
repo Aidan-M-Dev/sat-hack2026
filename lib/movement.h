@@ -1,4 +1,4 @@
-#include "../demo/ADCS.h"
+#include <ADCS.h>
 #include "calibration.h"
 
 const int STARTUP_MS = 0;    // y-intercept
