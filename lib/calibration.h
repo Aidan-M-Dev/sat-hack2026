@@ -60,8 +60,8 @@
 // =========================================================================
 
 // Side-mount (stage 1): ultrasonic faces perpendicular to car axis
-#define SENSOR_SIDE_OFFSET_X    0.0f   // left-right offset (cm); adjust if mounted off-centre
-#define SENSOR_SIDE_OFFSET_Y    0.0f   // forward offset (cm); adjust if not on axle line
+#define SENSOR_SIDE_OFFSET_X    6.5f   // left-right offset (cm); adjust if mounted off-centre. known distance - measured distance 15.5-9 = 6.5
+#define SENSOR_SIDE_OFFSET_Y    7.5f   // forward offset (cm); adjust if not on axle line
 
 // Front-mount (stages 2 & 3): ultrasonic faces forward
 #define SENSOR_FRONT_OFFSET_X   0.0f   // left-right offset (cm) 0 = centred
