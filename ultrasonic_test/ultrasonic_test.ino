@@ -1,3 +1,4 @@
+//Limit ~380cm 
 const int trigPin = A4;
 const int echoPin = A5;
 

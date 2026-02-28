@@ -6,6 +6,12 @@ Welcome! Some demo code is provided here for you to get started. Clone (or downl
 Check the file `demo/ACDS.h` to see the base API functions allowing you to read ultrasound data and drive motors.
 The file `demo.ino` will run a demo program that uses the ultrasound sensor to avoid obstacles. *Run this first* to test that all the hardware works fine before you start developing your own software.
 
+The demo sketch has recently been refactored to eliminate a
+constant 20‑point yaw offset that caused some boards to spin in tight
+circles. If you pull the latest version it now ramps speed evenly and
+never drives the two motors at different PWM values unless executing a
+turn or reverse.
+
 # Notes/Troubleshooting
 
 > I am driving both motors at the same speed, but my RC car is drfiting off to the side!
@@ -29,3 +35,26 @@ Check your connections between the breakout board and motor driver. If this does
 
 > Where can I find more documentation?
 Arduino [website](https://docs.arduino.cc/language-reference/).
+
+---
+
+## Running the Python regression tests
+
+A small Python model of the control logic and accompanying pytest
+suite are included under `demo/`. They exercise the same decisions the
+Arduino code makes and were used to drive the red‑green fix for the
+spinning bug.
+
+```sh
+cd demo
+pip install pytest
+pytest test_demo_logic.py
+```
+
+The tests demonstrate (and now assert) that
+* forward commands always apply identical PWM to both motors
+* the obstacle‑avoidance sequence issues stop, reverse and turn
+* speed ramps as expected and is clamped to safe limits
+
+You can run the tests on your development machine even if Arduino is
+not installed.

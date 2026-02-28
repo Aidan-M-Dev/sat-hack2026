@@ -1,17 +1,42 @@
 #include "ADCS.h"
 
-//Data variable definition
-int MotSpeed1 = 200; 
-int MotSpeed2 = 200;
+const int set_dis = 20;
+
 int Speed_adjustment = 120;
 int stop_bit = 0;
-float distance = 0.0;
-int set_dis = 30;
 
-//Program initialization
+const int kMinSpeed = 120;
+const int kMaxSpeed = 235;
+const int kReverseSpeed = 140;
+const int kTurnSpeed = 140;
+
+void stopMotors() {
+    motorL(0,0);
+    motorR(0,0);
+}
+
+void forward(int speed) {
+    int r = speed - offset;
+    if (r < 0) r = 0;
+    motorL(speed, 0);
+    motorR(r, 0);
+}
+
+void reverse(int speed) {
+    int r = speed - offset;
+    if (r < 0) r = 0;
+    motorL(0, speed);
+    motorR(0, r);
+}
+
+void turnLeft() {
+    motorL(0, kTurnSpeed);
+    motorR(kTurnSpeed - offset, 0);
+}
+
 void setup()  
 {
-    Serial.begin(9600); 
+    Serial.begin(9600);
 
     pinMode(5, OUTPUT);
     pinMode(6, OUTPUT);
@@ -20,65 +45,40 @@ void setup()
 
     pinMode(Trig,OUTPUT);   
     pinMode(Echo,INPUT); 
-    // Define ultrasonic sensor pins
-    
-
 }
 
-//Principal function
+// gently ramp the speed toward max when safe, or toward min when too close
+void adjustSpeed(bool closer) {
+    if (closer) {
+        Speed_adjustment = max(Speed_adjustment - 1, kMinSpeed);
+    } else {
+        Speed_adjustment = min(Speed_adjustment + 1, kMaxSpeed);
+    }
+}
+
 void loop()
 {
-  int distance;
-  distance = GetDistance(); 
-  Serial.println(distance);  //Print distance in serial port
-  if(distance < 30)     //Judge that the distance is less than 40cm and start to decelerate
-  {
-	  Speed_adjustment--;
-	  delay(5);     //Car deceleration speed
-	  if(Speed_adjustment<=120) Speed_adjustment=120;
-    MotSpeed1 = Speed_adjustment+20;  //In order to make up for the car's yaw, a value can be added according to the actual situation //as:Speed_adjustment+20
-    MotSpeed2 = Speed_adjustment;
-  }
+    int dist = (int) GetDistance();
+    Serial.println(dist);
 
-  if(distance > 30)  //Judge if the distance is more than 40cm and start to accelerate
-  {
-	  Speed_adjustment++;
-	  delay(5);
-	  if(Speed_adjustment>=235)Speed_adjustment=235; //The maximum limit is 255
-      MotSpeed1 = Speed_adjustment+20; //In order to make up for the car's yaw, a value can be added according to the actual situation //as:Speed_adjustment+20
-      MotSpeed2 = Speed_adjustment;
-  }
-     
-	if(distance < set_dis)  //Judge that the car is less than the obstacle avoidance distance and start to turn backward
-	{
-		delay(10);
-		distance = GetDistance(); 
-		if(distance < set_dis)
-		{
-			if(stop_bit==0)
-			{
-				//stop
-        motor1(0,0);
-        motor2(0,0);
-				delay(300);
-				stop_bit=1;
-			}
-			//Car back
-      motor1(0,140);
-      motor2(0,140);
-			delay(600);
-			//The car turns left
-      motor1(0, 140);
-      motor2(140, 0);
-			delay(200);          
-			Speed_adjustment=120;
-		}
-	}
-  else
-  {
-      //If there is no less than the obstacle avoidance distance, move forward
-      motor1(MotSpeed1,0);
-      motor2(MotSpeed2,0);
-		  stop_bit=0;
-  }
+    if ((dist < set_dis) && (dist != 0)) {
+        stopMotors();
+        delay(300);
+        reverse(kReverseSpeed);
+        delay(600);
+        turnLeft();
+        delay(200);
+        Speed_adjustment = kMinSpeed;
+        stop_bit = 1;
+    }
+    else if (dist == 0) {
+        delay(100);
+    }
+    else {
+        // safe: ramp speed and go forward
+        adjustSpeed(false);
+        forward(Speed_adjustment);
+        stop_bit = 0;
+    }
 }
+
