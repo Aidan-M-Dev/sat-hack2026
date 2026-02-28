@@ -7,7 +7,7 @@ const int PIN_ECHO        = A5;
 
 const int REF_SPEED         = 180;    // reference speed for timing calibration
 const float MS_PER_CM       = 24.0f;  // adjust after driving test
-const float MS_PER_DEG      = 24.0f;   // adjust after rotation test
+const float MS_PER_DEG      = 3.25f;   // adjust after rotation test
 const float TRIM_L          = 1.25f;   // left motor multiplier
 const float TRIM_R          = 1.05f;   // right motor multiplier
 
@@ -109,7 +109,7 @@ void test_trim() {
 void test_distance() {
     Serial.println("DISTANCE TEST: driving forward 3000 ms at REF_SPEED");
     motors_forward(REF_SPEED);
-    delay(5000);
+    delay(3000);
     motors_stop();
     Serial.println("Done. Measure actual distance travelled.");
     Serial.println("For calibration: MS_PER_CM = 3000 / distance_cm");

@@ -40,7 +40,7 @@
 // =========================================================================
 #define REF_SPEED     180     // reference speed (PWM 0–255) used for calibration
 #define MS_PER_CM     24.0f   // milliseconds per cm forward at REF_SPEED (adjust after test drive)
-#define MS_PER_DEG    4.5f    // milliseconds per degree rotation at REF_SPEED (adjust after test drive)
+#define MS_PER_DEG    3.25f    // milliseconds per degree rotation at REF_SPEED (adjust after test drive)
 
 // =========================================================================
 // Sensor Offset from Wheel Axle Centre
