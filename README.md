@@ -10,10 +10,10 @@ The file `demo.ino` will run a demo program that uses the ultrasound sensor to a
 
 > I am driving both motors at the same speed, but my RC car is drfiting off to the side!
 
-This happens due to misalignment of the ball wheel on the back. You can fix this by adding a trimming factor to each wheel, for example by editing the `motor` function to drive each wheel with a slight imbalance like below.
+This happens due to misalignment of the ball wheel on the back. You can fix this by adding a trimming factor to each wheel, for example if you have a top level `motor` function to drive each wheel, you can incorporate a slight imbalance like below.
 
 ```c++
-void motor(int dir ,int speed1, int speed2)  
+void motor(int speed1, int speed2)  
 {
   const int trim_1 = 1;
   const int trim_2 = 1.2;
