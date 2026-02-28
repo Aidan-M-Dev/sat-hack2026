@@ -173,7 +173,7 @@ void setup() {
 
     Serial.println("\n=== Standalone Calibration Helper ===");
     print_help();
-    test_distance();
+    test_sensor();
 }
 
 void loop() {
