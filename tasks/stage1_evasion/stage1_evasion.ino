@@ -14,7 +14,7 @@
 //   DODGING   – debris detected → straighten heading, drive laterally to evade
 //   RECENTRE  – after dodge, if too close to a box edge, drift back to centre
 
-#include "../../lib/calibration.h"
+#include <calibration.h>
 #include "../../lib/hal.h"
 #include "../../lib/movement.h"
 #include "../../lib/sensing.h"
