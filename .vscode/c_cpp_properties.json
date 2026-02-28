@@ -1,0 +1,17 @@
+{
+  "configurations": [
+    {
+      "name": "Arduino",
+      "includePath": [
+        "${workspaceFolder}/lib",
+        "${workspaceFolder}/tasks/**",
+        "${env:HOME}/Arduino/libraries/sat-hack2026"
+      ],
+      "defines": ["ARDUINO=10819"],
+      "cStandard": "c11",
+      "cppStandard": "c++17",
+      "intelliSenseMode": "gcc-x64"
+    }
+  ],
+  "version": 4
+}
