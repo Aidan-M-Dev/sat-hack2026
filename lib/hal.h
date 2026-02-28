@@ -12,8 +12,6 @@
  * compatible with the Arduino IDE's single-file compilation model.
  */
 
-#include <Arduino.h>
-
 // pins
 static const int PIN_MOTOR_L_FWD = 5;
 static const int PIN_MOTOR_L_REV = 6;

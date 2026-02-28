@@ -1,4 +1,4 @@
-#include "ADCS.h"
+#include "../demo/ADCS.h"
 
 // --- Calibration Constants (TUNE THESE!) ---
 // How many milliseconds does it take to turn 1 degree?
