@@ -1,6 +1,6 @@
-#include "../../lib/hal.h"
-#include "../../lib/movement.h"
-#include "../../lib/calibration.h"
+#include <hal.h>
+#include <movement.h>
+#include <calibration.h>
 
 void setup() {
     Serial.begin(9600);
@@ -10,17 +10,17 @@ void setup() {
 
 void loop() {
     Serial.println("Moving FORWARD for 2 seconds...");
-    move_forward(REF_SPEED, 2000);
+    forward_dist(30);
 
     Serial.println("STOP for 1 second...");
-    stop();
+    stopMotors();
     delay(1000);
 
     Serial.println("Moving BACKWARD for 2 seconds...");
-    move_backward(REF_SPEED, 2000);
+    reverse(30);
 
     Serial.println("STOP for 1 second...");
-    stop();
+    stopMotors();
     delay(1000);
 
     Serial.println("");
