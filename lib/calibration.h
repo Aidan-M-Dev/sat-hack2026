@@ -4,7 +4,7 @@
 /*
  * lib/calibration.h
  *
- * Per-car tuning constants. These are experimentally determined. See calibration procedure at the end.
+ * Experimentlaly determined constants.
  *
  * All distances in centimetres, all times in milliseconds, all angles in degrees.
  */
@@ -12,8 +12,7 @@
 // =========================================================================
 // Motor Trim (per-motor speed adjustment to correct drift)
 // =========================================================================
-// If the car drifts left when driving straight, TRIM_R is too high or
-// TRIM_L is too low — increase TRIM_L or decrease TRIM_R.
+// If the car drifts left when driving straight, TRIM_R is too high or TRIM_L is too low.
 // Procedure: drive straight 2m, measure actual drift, adjust trim factors.
 // =========================================================================
 #define TRIM_L        1.0f    // left motor multiplier (adjust if car drifts)
@@ -26,7 +25,6 @@
 // (degrees) into durations (ms) at a reference speed.
 //
 // REF_SPEED: the PWM value at which MS_PER_CM and MS_PER_DEG were measured.
-//            typically ~180 (middle of 0–255 range).
 //
 // MS_PER_CM: milliseconds of forward driving = 1 cm at REF_SPEED
 // MS_PER_DEG: milliseconds of in-place rotation = 1 degree at REF_SPEED
@@ -61,24 +59,23 @@
 // is physically repositioned between stages.
 // =========================================================================
 
-// Front-mount (stages 2 & 3): ultrasonic faces forward
-#define SENSOR_FRONT_OFFSET_X   0.0f   // left-right offset (cm); 0 = centred
-#define SENSOR_FRONT_OFFSET_Y   5.0f   // forward offset (cm); typical 5–7cm ahead of axle
-
-// Side-mount (stage 1): ultrasonic faces sideways (perpendicular to car axis)
+// Side-mount (stage 1): ultrasonic faces perpendicular to car axis
 #define SENSOR_SIDE_OFFSET_X    0.0f   // left-right offset (cm); adjust if mounted off-centre
 #define SENSOR_SIDE_OFFSET_Y    0.0f   // forward offset (cm); adjust if not on axle line
 
+// Front-mount (stages 2 & 3): ultrasonic faces forward
+#define SENSOR_FRONT_OFFSET_X   0.0f   // left-right offset (cm) 0 = centred
+#define SENSOR_FRONT_OFFSET_Y   0.0f   // forward offset (cm) from axle
+
 // =========================================================================
-// Active Sensor Configuration (choose one for current stage)
+// Active Sensor Configuration for current stage
 // =========================================================================
-// Set SENSOR_MOUNT to MOUNT_FRONT (stages 2 & 3) or MOUNT_SIDE (stage 1)
-// before compiling. The derived macros below will activate the correct offsets.
+// Set SENSOR_MOUNT to MOUNT_FRONT (stages 2 & 3) or MOUNT_SIDE (stage 1) to select the applicable offsets
 // =========================================================================
 #define MOUNT_FRONT   0
 #define MOUNT_SIDE    1
 
-#define SENSOR_MOUNT  MOUNT_SIDE    // ← EDIT for each stage before upload
+#define SENSOR_MOUNT  MOUNT_SIDE // current mount
 
 #if SENSOR_MOUNT == MOUNT_FRONT
   #define SENSOR_OFFSET_X  SENSOR_FRONT_OFFSET_X
@@ -89,12 +86,12 @@
 #endif
 
 // =========================================================================
-// Course Dimensions (fixed by task specification)
+// Arena Dimensions (from task spec)
 // =========================================================================
 #define COURSE_W_CM   300    // 3m arena width
 #define COURSE_H_CM   600    // 6m arena length
 #define EVASION_W_CM  150    // 1.5m stage 1 box width (lateral)
-#define EVASION_H_CM  50     // 0.5m stage 1 box depth (front-to-back)
+#define EVASION_H_CM  50     // 0.5m stage 1 box length (front-to-back)
 
 // =========================================================================
 // Safety and Behaviour Thresholds
@@ -103,11 +100,12 @@
 // Emergency stop distance: hard-stop if anything is closer than this.
 // Should be larger than HC-SR04 minimum range (~2cm) and smaller than
 // desired safety margin (~15cm).
-#define EMERGENCY_STOP_CM   8    // cm
+// note readings can be unreliable for < 5cm
+#define EMERGENCY_STOP_CM   5
 
 // Stage 1 debris detection range: trigger evasion if reading is < this.
 // Should be large enough to give reaction time (~50–70cm from 2m away).
-#define INCOMING_THRESHOLD  60   // cm (stage 1 debris detection)
+#define INCOMING_THRESHOLD  65   // cm (stage 1 debris detection)
 
 // Wall-follow target distance: maintain this distance from walls in stages 2 & 3.
 #define WALL_FOLLOW_CM      15   // cm
