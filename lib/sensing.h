@@ -41,7 +41,7 @@ inline void set_sensor_offset(float x, float y) {
 }
 
 /**
- * convenience initialiser for stage-specific mounts
+ * convenience initialiser for stage-specific mounts`
  * stage1 = sideways (evasion), stage2/3 = forward (navigation)
  */
 inline void init_sensing(int stage) {

@@ -1,4 +1,4 @@
-#include "ADCS.h"
+#include "../demo/ADCS.h"
 
 const float MS_PER_DEG = 3.2;   // Calibrated value
 const int CRUISE_SPEED = 150;   // Speed used for all precision moves
