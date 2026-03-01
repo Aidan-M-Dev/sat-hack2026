@@ -18,15 +18,15 @@
 #define START_X               (BOX_WIDTH_CM / 2.0f)   // 75 cm — box center
 #define START_Y               (BOX_LENGTH_CM / 2.0f)  // 25 cm — box center
 
-#define DETECTION_THRESHOLD   85.0f      // cm — when to react to debris
-#define DODGE_SPEED           150        // PWM speed for movement
+#define DETECTION_THRESHOLD   100.0f      // cm — when to react to debris
+#define DODGE_SPEED           180        // PWM speed for movement
 #define BOUNDARY_MARGIN       5.0f       // cm — safety margin from edge (stops before hitting edge)
 
 // Simple state: are we currently avoiding something?
 static bool is_avoiding = false;
 static int evade_dir = 1;              // current dodge direction (1=forward/right, -1=reverse/left)
 static unsigned long evade_start = 0;
-static const unsigned long EVADE_DURATION = 1000; // ms to drive when evading// dodge counter to alternate directions: odd->forward, even->backward
+static const unsigned long EVADE_DURATION = 900; // ms to drive when evading// dodge counter to alternate directions: odd->forward, even->backward
 static int dodge_count = 0;
 /**
  * Helper: Check if a forward movement of 'distance_cm' would exceed box boundaries
