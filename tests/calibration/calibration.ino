@@ -7,8 +7,8 @@ const int PIN_ECHO        = A5;
 
 const int REF_SPEED         = 180;    // reference speed for timing calibration
 const float MS_PER_CM       = 24.0f;  // adjust after driving test
-const float MS_PER_DEG      = 3.25f;   // adjust after rotation test
-const float TRIM_L          = 1.25f;   // left motor multiplier
+const float MS_PER_DEG      = 3.1f;   // adjust after rotation test
+const float TRIM_L          = 1.3f;   // left motor multiplier
 const float TRIM_R          = 1.05f;   // right motor multiplier
 
 // Sensor offset (cm) from axle centre
@@ -173,7 +173,9 @@ void setup() {
 
     Serial.println("\n=== Standalone Calibration Helper ===");
     print_help();
-    test_sensor();
+    test_rotation();
+    delay(2000);
+    test_distance();
 }
 
 void loop() {

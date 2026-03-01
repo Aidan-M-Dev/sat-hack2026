@@ -15,8 +15,8 @@
 // If the car drifts left when driving straight, TRIM_R is too high or TRIM_L is too low.
 // Procedure: drive straight 2m, measure actual drift, adjust trim factors.
 // =========================================================================
-#define TRIM_L        1.25f    // left motor multiplier (adjust if car drifts)
-#define TRIM_R        1.05f    // right motor multiplier
+#define TRIM_L        1.3f    // left motor multiplier (adjust if car drifts)
+#define TRIM_R        1.2f    // right motor multiplier
 
 // =========================================================================
 // Time-Distance & Time-Angle Calibration
@@ -40,7 +40,7 @@
 // =========================================================================
 #define REF_SPEED     180     // reference speed (PWM 0–255) used for calibration
 #define MS_PER_CM     24.0f   // milliseconds per cm forward at REF_SPEED (adjust after test drive)
-#define MS_PER_DEG    3.25f    // milliseconds per degree rotation at REF_SPEED (adjust after test drive)
+#define MS_PER_DEG    3.1f    // milliseconds per degree rotation at REF_SPEED (adjust after test drive)
 
 // =========================================================================
 // Sensor Offset from Wheel Axle Centre
